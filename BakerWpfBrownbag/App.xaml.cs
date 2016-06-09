@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BakerWpfBrownbag.Views;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,12 @@ namespace BakerWpfBrownbag
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            MainWindowView vw = new MainWindowView();
+            // MainWindowViewModel vm = new MainWindowViewModel();
+            // vw.DataContext = vm;
+            vw.Show();
+        }
     }
 }
