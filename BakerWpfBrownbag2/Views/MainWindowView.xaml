@@ -8,48 +8,56 @@
         Title="MainWindowView" Height="300" Width="600"
         Background="Bisque">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="75" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="75" />
-        </Grid.RowDefinitions>
+    <StackPanel>
+        <Slider Minimum="1" Maximum="4" x:Name="slid3r" />
+        <Grid>
+            <Grid.RenderTransform>
+                <ScaleTransform ScaleX="{Binding ElementName=slid3r, Path=Value}" 
+                                ScaleY="{Binding RelativeSource={RelativeSource Self}, Path=ScaleX}"/>
+            </Grid.RenderTransform>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="75" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Name:" Padding="0" Margin="0 0 5 0" VerticalAlignment="Center"/>
-            <TextBox Text="WPF Brownbag" Height="20" Width="130"/>
-            <Label Content="Description:" Padding="0" VerticalAlignment="Center" Margin="50 0 5 0"/>
-            <TextBox Height="20" Width="185"/>
-        </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Name:" Padding="0" Margin="0 0 5 0" VerticalAlignment="Center"/>
+                <TextBox Height="20" Width="130" Text="{Binding Name}"/>
+                <Label Content="Description:" Padding="0" VerticalAlignment="Center" Margin="50 0 5 0"/>
+                <TextBox Height="20" Width="185" Text="{Binding Description}"/>
+            </StackPanel>
 
-        <!-- Compressive strength -->
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Compressive strength at 28 days (f'c) = " HorizontalAlignment="Right" VerticalAlignment="Center" />
-        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20" />
+            <!-- Compressive strength -->
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Compressive strength at 28 days (f'c) = " HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20" Text="{Binding CompressiveStrength28}"/>
 
-        <!-- Initial compressive strength -->
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Intial compressive strength (f'ci) = " HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20"/>
+            <!-- Initial compressive strength -->
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Intial compressive strength (f'ci) = " HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20"/>
 
-        <!-- Coefficient of thermal expansion-->
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Coefficient of thermal expansion- = " HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20"/>
+            <!-- Coefficient of thermal expansion-->
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Coefficient of thermal expansion- = " HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20"/>
 
-        <!-- Density (for dead loads) -->
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="Density (for dead loads) = " HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20"/>
+            <!-- Density (for dead loads) -->
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Density (for dead loads) = " HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20"/>
 
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal"  HorizontalAlignment="Right" Height="35" Margin="20">
-            <Button Content="OK" Width="75" Margin="5"/>
-            <Button Content="Apply" Width="75" Margin="5"/>
-            <Button Content="Cancel" Width="75" Margin="5"/>
-        </StackPanel>
-    </Grid>
-
+            <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal"  HorizontalAlignment="Right" Height="35" Margin="20">
+                <Button Content="OK" Width="75" Margin="5" Command="{Binding OkCommand}"/>
+                <Button Content="Apply" Width="75" Margin="5" Command="{Binding ApplyCommand}"/>
+                <Button Content="Cancel" Width="75" Margin="5" Command="{Binding CancelCommand}"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+    
 </Window>

@@ -1,4 +1,5 @@
 ﻿using BakerWpfBrownbag.Helpers;
+using BakerWpfBrownbag.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +22,22 @@ namespace BakerWpfBrownbag.ViewModels
         protected DelegateCommand m_ApplyCommand;
         protected DelegateCommand m_CancelCommand;
 
-        public MainWindowViewModel()
+        protected MatlConcrete m_Data;
+
+        public MainWindowViewModel(MatlConcrete m)
         {
             m_OkCommand = new DelegateCommand(OnOkCommand);
             m_ApplyCommand = new DelegateCommand(OnApplyCommand);
             m_CancelCommand = new DelegateCommand(OnCancelCommand);
 
-            ResetFields();
+            this.Name = m.Name;
+            this.Description = m.Description;
+            this.CompressiveStrength28 = m.CompressiveStrength28;
+            this.InitialCompressiveStrength = m.InitialCompressiveStrength;
+            this.CoeffThermalExpansion = m.CoeffThermalExpansion;
+            this.DensityDeadLoad = m.DensityDeadLoad;
+
+            m_Data = m;
         }
 
         public string Name
@@ -107,17 +117,24 @@ namespace BakerWpfBrownbag.ViewModels
 
         protected void OnOkCommand()
         {
+            SaveData();
 
         }
 
         protected void OnApplyCommand()
         {
-
+            SaveData();
         }
 
         protected void OnCancelCommand()
         {
             ResetFields();
+        }
+
+        protected void SaveData()
+        {
+            m_Data.Name = this.Name;
+
         }
 
         protected void ResetFields()
