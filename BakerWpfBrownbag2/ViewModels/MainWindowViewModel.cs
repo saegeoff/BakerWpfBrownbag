@@ -2,6 +2,8 @@
 using BakerWpfBrownbag.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,13 @@ namespace BakerWpfBrownbag.ViewModels
         protected double m_CoeffThermalExpansion;
         protected double m_DensityDeadLoad;
 
+        protected readonly ObservableCollection<DataGridRowViewModel> m_GridRowCollection;
+        protected DataGridRowViewModel m_SelectedGridRow;
+
+        protected DelegateCommand m_AddGridRowCommand;
+        protected DelegateCommand m_DuplicateGridRowCommand;
+        protected DelegateCommand m_DeleteGridRowCommand;
+
         protected DelegateCommand m_OkCommand;
         protected DelegateCommand m_ApplyCommand;
         protected DelegateCommand m_CancelCommand;
@@ -26,6 +35,12 @@ namespace BakerWpfBrownbag.ViewModels
 
         public MainWindowViewModel(MatlConcrete m)
         {
+            m_GridRowCollection = new ObservableCollection<DataGridRowViewModel>();
+
+            m_AddGridRowCommand = new DelegateCommand(OnAddGridRowCommand);
+            m_DuplicateGridRowCommand = new DelegateCommand(OnDuplicateGridRowCommand, () => { return m_SelectedGridRow != null; });
+            m_DeleteGridRowCommand = new DelegateCommand(OnDeleteGridRowCommand, () => { return m_SelectedGridRow != null; });
+
             m_OkCommand = new DelegateCommand(OnOkCommand);
             m_ApplyCommand = new DelegateCommand(OnApplyCommand);
             m_CancelCommand = new DelegateCommand(OnCancelCommand);
@@ -100,6 +115,36 @@ namespace BakerWpfBrownbag.ViewModels
             }
         }
 
+        public ObservableCollection<DataGridRowViewModel> GridRowCollection
+        {
+            get { return m_GridRowCollection; }
+        }
+
+        public DataGridRowViewModel SelectedGridRow
+        {
+            get { return m_SelectedGridRow; }
+            set
+            {
+                m_SelectedGridRow = value;
+                OnPropertyChanged("SelectedGridRow");
+            }
+        }
+
+        public ICommand AddGridRowCommand
+        {
+            get { return m_AddGridRowCommand; }
+        }
+
+        public ICommand DuplicateGridRowCommand
+        {
+            get { return m_DuplicateGridRowCommand; }
+        }
+
+        public ICommand DeleteGridRowCommand
+        {
+            get { return m_DeleteGridRowCommand; }
+        }
+
         public ICommand OkCommand
         {
             get { return m_OkCommand; }
@@ -113,6 +158,36 @@ namespace BakerWpfBrownbag.ViewModels
         public ICommand CancelCommand
         {
             get { return m_CancelCommand; }
+        }
+
+        protected void OnAddGridRowCommand()
+        {
+            DataGridRowViewModel vm = new DataGridRowViewModel();
+            m_GridRowCollection.Add(vm);
+        }
+
+        protected void OnDuplicateGridRowCommand()
+        {
+            if (m_SelectedGridRow == null)
+            {
+                Debug.Assert(false);
+                return;
+            }
+
+            DataGridRowViewModel vm = new DataGridRowViewModel();
+            vm.Copy(m_SelectedGridRow);
+            m_GridRowCollection.Add(vm);
+        }
+
+        protected void OnDeleteGridRowCommand()
+        {
+            if (m_SelectedGridRow == null)
+            {
+                Debug.Assert(false);
+                return;
+            }
+
+            m_GridRowCollection.Remove(m_SelectedGridRow);
         }
 
         protected void OnOkCommand()

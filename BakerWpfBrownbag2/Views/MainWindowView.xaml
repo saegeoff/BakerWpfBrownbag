@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BakerWpfBrownbag.Views"
         mc:Ignorable="d"
-        Title="MainWindowView" Height="300" Width="600"
+        Title="MainWindowView" Height="600" Width="600"
         Background="Bisque">
 
     <StackPanel>
@@ -22,11 +22,12 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="75" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="75" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -51,8 +52,32 @@
             <!-- Density (for dead loads) -->
             <TextBlock Grid.Row="4" Grid.Column="0" Text="Density (for dead loads) = " HorizontalAlignment="Right" VerticalAlignment="Center"/>
             <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20"/>
+            
+            <!-- Data Grid -->
+            <GroupBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Header="Example DataGrid!" Margin="5">
+                <StackPanel>
+                    <DataGrid Margin="10" Height="150"
+                              ItemsSource="{Binding GridRowCollection}"
+                              SelectedItem="{Binding SelectedGridRow}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="First Column" Binding="{Binding FirstColumn}"/>
+                            <DataGridTextColumn Header="Second Column" Binding="{Binding SecondColumn}"/>
+                            <DataGridTextColumn Header="Third Column" Binding="{Binding ThirdColumn}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Margin="5">
+                        <Button Content="Add" Width="75" Margin="5" Command="{Binding AddGridRowCommand}"/>
+                        <Button Content="Duplicate" Width="75" Margin="5" Command="{Binding DuplicateGridRowCommand}"/>
+                        <Button Content="Delete" Width="75" Margin="5" Command="{Binding DeleteGridRowCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
 
-            <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal"  HorizontalAlignment="Right" Height="35" Margin="20">
+            <!-- Buttons -->
+            <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal"  HorizontalAlignment="Right" Height="35" Margin="20">
                 <Button Content="OK" Width="75" Margin="5" Command="{Binding OkCommand}"/>
                 <Button Content="Apply" Width="75" Margin="5" Command="{Binding ApplyCommand}"/>
                 <Button Content="Cancel" Width="75" Margin="5" Command="{Binding CancelCommand}"/>
