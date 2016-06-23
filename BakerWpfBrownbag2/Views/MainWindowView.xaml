@@ -5,10 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BakerWpfBrownbag.Views"
         mc:Ignorable="d"
-        Title="MainWindowView" Height="600" Width="600"
-        Background="Bisque">
+        Title="MainWindowView" Height="600" Width="600">
+
+    <Window.Style>
+        <Style TargetType="Window">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=redcheckBox, Path=IsChecked}" Value="True">
+                    <Setter Property="Background" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+
 
     <StackPanel>
+        <CheckBox x:Name="redcheckBox" Content="Set red as foreground color" Margin="20"/>
         <Slider Minimum="1" Maximum="4" x:Name="slid3r" />
         <Grid>
             <Grid.RenderTransform>
@@ -76,12 +87,6 @@
                 </StackPanel>
             </GroupBox>
 
-            <!-- Buttons -->
-            <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal"  HorizontalAlignment="Right" Height="35" Margin="20">
-                <Button Content="OK" Width="75" Margin="5" Command="{Binding OkCommand}"/>
-                <Button Content="Apply" Width="75" Margin="5" Command="{Binding ApplyCommand}"/>
-                <Button Content="Cancel" Width="75" Margin="5" Command="{Binding CancelCommand}"/>
-            </StackPanel>
         </Grid>
     </StackPanel>
     

@@ -163,7 +163,16 @@ namespace BakerWpfBrownbag.ViewModels
         protected void OnAddGridRowCommand()
         {
             DataGridRowViewModel vm = new DataGridRowViewModel();
-            m_GridRowCollection.Add(vm);
+            vm.NewRow = true;
+            if (m_SelectedGridRow != null)
+            {
+                int i = m_GridRowCollection.IndexOf(m_SelectedGridRow);
+                m_GridRowCollection.Insert(i + 1, vm);
+            }
+            else
+            {
+                m_GridRowCollection.Add(vm);
+            }
         }
 
         protected void OnDuplicateGridRowCommand()
@@ -199,6 +208,8 @@ namespace BakerWpfBrownbag.ViewModels
         protected void OnApplyCommand()
         {
             SaveData();
+
+
         }
 
         protected void OnCancelCommand()
@@ -210,6 +221,11 @@ namespace BakerWpfBrownbag.ViewModels
         {
             m_Data.Name = this.Name;
 
+            foreach (DataGridRowViewModel vm in m_GridRowCollection)
+            {
+                // Item item = DoList.Add();
+                // item.ColumnOne = vm.ColumnOne;
+            }
         }
 
         protected void ResetFields()

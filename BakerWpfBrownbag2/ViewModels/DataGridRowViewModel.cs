@@ -42,6 +42,8 @@ namespace BakerWpfBrownbag.ViewModels
             }
         }
 
+        public bool NewRow { get; set; }
+
         public void Copy(DataGridRowViewModel vm)
         {
             this.FirstColumn = vm.FirstColumn;
