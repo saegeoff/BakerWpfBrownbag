@@ -42,7 +42,7 @@
         <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20"/>
 
         <!-- Coefficient of thermal expansion-->
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Coefficient of thermal expansion- = " HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Coefficient of thermal expansion = " HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="150" Height="20"/>
 
         <!-- Density (for dead loads) -->
